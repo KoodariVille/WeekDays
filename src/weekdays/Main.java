@@ -40,15 +40,6 @@ public class Main {
             {0,1,0,0,0,1,0,0,0,1,0,0,0,1}
         };
         
-        
-//        for(int i = 0; i < graph.length; i++){
-//            System.out.println(Arrays.toString(graph[i]));          
-//        }
-        a.ColumnCheck(graph);
+        a.Solve(graph);
     }
-    
-//    static int randomNum(int min, int max){
-//        int range = (max - min) + 1;     
-//        return (int)(Math.random() * range) + min;
-//    }
 }
