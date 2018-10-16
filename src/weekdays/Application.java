@@ -15,51 +15,49 @@ import java.util.Collections;
  *
  * @author User
  */
-public class Application {
-    private int max = 0;
-    private int min = 0;
-    
+public class Application { 
     public int ColumnMax(int[][] matrix){
+        int max = 0;
         int total = 0;
         int column = 0;
         
         for(int i = 0; i < 14; i++){
-            for(int j = 0; j < 10; j++){
-                total += IntStream.of(matrix[j][i]).sum();
-            }          
-            if(total >= max){
+            total += ColumnSum(matrix,i);
+            if(total > max){
                 max = total;
                 column = i;
             }
             total = 0;
         }
-        System.out.println(column);
+        
+        System.out.println("max" + column);
         return column;
     }
     
     public int ColumnMin(int[][] matrix){
         List<Integer> list = new ArrayList();
-        min = 5;
         int total = 0;
         int column = 0;
+        int min = matrix[0][0];
         
         for(int i = 0; i < 14; i++){
-            for(int j = 0; j < 10; j++){
-                total += IntStream.of(matrix[j][i]).sum();
-            }
-            if(i == 5 || i == 6 || i == 12 || i == 13){
+            total += ColumnSum(matrix,i);
+            if(i == 5 || i == 6 ||i == 12 || i == 13){
                 list.add(total - 5);
-            }
-            else{
+                if(list.get(i) <= min){
+                    min = list.get(i);
+                    column = i;
+                }
+            }else{
                 list.add(total - 2);
-            }
-            if(list.get(i) <= min){
-                min = list.get(i);
-                column = i;
+                if(list.get(i) <= min){
+                    min = list.get(i);
+                    column = i;
+                }
             }
             total = 0;
         }
-        System.out.println(column);
+        System.out.println("min" + column);
         return column;
     }
     
@@ -69,39 +67,40 @@ public class Application {
         for(int i = 0; i < 10; i++){
             sum += IntStream.of(matrix[i][column]).sum();
         }
-        System.out.println(sum);
+        
+        System.out.print(sum);
         return sum;
     }
        
     public int[][] MoveV(int cMax, int cMin, int[][] matrix){
-        int sum = ColumnSum(matrix, cMin);
         
         for(int i = 0; i < 10; i++){
             if(matrix[i][cMax] == 1){
                 matrix[i][cMax] = 0;
-                if((cMin == 5 || cMin ==6 || cMin == 12 || cMin == 13) && sum - 5 != 0){
+                if(matrix[i][cMin] == 0){
                     matrix[i][cMin] = 1;
-                } else if (ColumnSum(matrix, cMin) - 2 != 0 && (cMin == 0||cMin ==1||cMin ==2||cMin ==3||cMin ==4||cMin ==7||cMin ==8||cMin ==9||cMin ==10||cMin ==11)){
-                    matrix[i][cMin] = 1;
+                    break;
+                }else{
+                    
                 }
                 break;
             }
-        }
-        
+        }        
         return matrix;
     }
     
     public void Solve(int[][] matrix){
         int turn = 0;
-        
-        while(turn < 30){
+        while(true){
             int cMax = ColumnMax(matrix);
             int cMin = ColumnMin(matrix);
-        
+
             matrix = MoveV(cMax, cMin, matrix);
             turn += 1;
+            if(turn == 10){
+                break;
+            }
         }
-        
         for (int[] matrix1 : matrix) {
             System.out.println(Arrays.toString(matrix1));          
         }
