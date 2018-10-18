@@ -1,20 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package weekdays;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
-import java.util.Collections;
 
-/**
- *
- * @author User
- */
 public class Application { 
     public int ColumnMax(int[][] matrix){
         List<Integer> list = new ArrayList();
@@ -95,7 +85,7 @@ public class Application {
             total = 0;
         }
         int e = list2.get(list2.size() - iMin);
-//        System.out.println("min2 " + 3);
+//        System.out.println("min2 " + e);
         return e;
     }
     
@@ -140,9 +130,8 @@ public class Application {
             MinColumn= ColumnMin(matrix);
             matrix = MoveV(MaxColumn, MinColumn, matrix);
             vSum = VacSum(matrix);
-
         }
-        System.out.println();
+        
         for (int[] matrix1 : matrix) {
             System.out.println(Arrays.toString(matrix1));          
         }
